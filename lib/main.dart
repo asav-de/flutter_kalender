@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_kalender/kalender_info_text.dart';
+import 'package:flutter_kalender/info_text.dart';
+import 'package:flutter_kalender/kalender.dart';
 import 'package:flutter_kalender/month.dart';
+import 'package:flutter_kalender/weekdays.dart';
 
 void main() {
   runApp(const FlutterCalendar());
@@ -11,6 +13,10 @@ class FlutterCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final now = DateTime.now();
+    final int daysOfCurrentMonth = DateTime(now.year, now.month + 1, 0).day;
+    final int totalWeeks = (daysOfCurrentMonth / 7).ceil();
+
     return MaterialApp(
       theme: ThemeData(
         textTheme: const TextTheme(
@@ -21,7 +27,16 @@ class FlutterCalendar extends StatelessWidget {
           ),
         ),
       ),
-      home: Scaffold(body: Column(children: [DayInfo(), Month()])),
+      home: Scaffold(
+        body: Column(
+          children: [
+            DayInfo(),
+            Month(),
+            WeekDays(),
+            Column(children: [Kalender()]),
+          ],
+        ),
+      ),
     );
   }
 }

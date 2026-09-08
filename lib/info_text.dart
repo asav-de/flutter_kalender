@@ -12,12 +12,20 @@ class DayInfo extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.all(10),
-      margin: const EdgeInsets.fromLTRB(20, 20, 20, 5),
+      margin: const EdgeInsets.fromLTRB(10, 40, 10, 2),
       decoration: BoxDecoration(
+        border: Border.all(
+          width: 1.0,
+          color: const Color.fromARGB(255, 207, 252, 61),
+        ),
         color: Colors.blue.shade100,
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [
-          BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 3)),
+          BoxShadow(
+            color: Color.fromARGB(144, 0, 0, 0),
+            blurRadius: 6,
+            offset: Offset(0, 3),
+          ),
         ],
       ),
       child: Column(

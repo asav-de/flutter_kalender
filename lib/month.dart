@@ -30,12 +30,20 @@ class _MonthState extends State<Month> {
 
     return Container(
       padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.fromLTRB(20, 5, 20, 8),
+      margin: const EdgeInsets.fromLTRB(10, 2, 10, 2),
       decoration: BoxDecoration(
+        border: Border.all(
+          width: 1.0,
+          color: const Color.fromARGB(255, 207, 252, 61),
+        ),
         color: Colors.blue.shade100,
         borderRadius: BorderRadius.circular(12),
         boxShadow: const [
-          BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 3)),
+          BoxShadow(
+            color: Color.fromARGB(144, 0, 0, 0),
+            blurRadius: 6,
+            offset: Offset(0, 3),
+          ),
         ],
       ),
       child: Row(
@@ -47,7 +55,7 @@ class _MonthState extends State<Month> {
             child: const Icon(Icons.chevron_left),
           ),
           Text(
-            DateFormat('MMMM yyyy').format(currentMonth),
+            DateFormat('MMMM').format(currentMonth),
             style: TextStyle(
               fontSize: width * 0.04,
               fontWeight: FontWeight.bold,
