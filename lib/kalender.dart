@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_kalender/my_decoration.dart';
 
 class Kalender extends StatelessWidget {
   const Kalender({super.key});
@@ -17,22 +18,8 @@ class Kalender extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(12),
-      margin: EdgeInsets.fromLTRB(12, 0, 12, 5),
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 1.0,
-          color: const Color.fromARGB(255, 207, 252, 61),
-        ),
-        color: Colors.blue.shade100,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromARGB(144, 0, 0, 0),
-            blurRadius: 6,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
+      margin: EdgeInsets.fromLTRB(10, 2, 10, 2),
+      decoration: MyBoxDecoration(),
       child: Column(
         spacing: 8,
         children: [
@@ -68,21 +55,7 @@ class DayBox extends StatelessWidget {
       padding: EdgeInsets.only(top: 16),
       width: width * 0.12,
       height: height * 0.08,
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 1.0,
-          color: const Color.fromARGB(255, 207, 252, 61),
-        ),
-        color: Colors.blue.shade100,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromARGB(144, 0, 0, 0),
-            blurRadius: 6,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
+      decoration: MyBoxDecoration(),
       child: Column(
         children: [
           Text(style: TextStyle(fontSize: width * 0.03), value.toString()),

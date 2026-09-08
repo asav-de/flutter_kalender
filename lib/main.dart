@@ -13,10 +13,6 @@ class FlutterCalendar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final now = DateTime.now();
-    final int daysOfCurrentMonth = DateTime(now.year, now.month + 1, 0).day;
-    final int totalWeeks = (daysOfCurrentMonth / 7).ceil();
-
     return MaterialApp(
       theme: ThemeData(
         textTheme: const TextTheme(

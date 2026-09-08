@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_kalender/my_decoration.dart';
 
 class DayInfo extends StatelessWidget {
   const DayInfo({super.key});
@@ -13,21 +14,7 @@ class DayInfo extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       margin: const EdgeInsets.fromLTRB(10, 40, 10, 2),
-      decoration: BoxDecoration(
-        border: Border.all(
-          width: 1.0,
-          color: const Color.fromARGB(255, 207, 252, 61),
-        ),
-        color: Colors.blue.shade100,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: const [
-          BoxShadow(
-            color: Color.fromARGB(144, 0, 0, 0),
-            blurRadius: 6,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
+      decoration: MyBoxDecoration(),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
