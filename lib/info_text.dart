@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_kalender/my_decoration.dart';
+import 'package:flutter_kalender/my_box_decoration.dart';
+import 'package:intl/intl.dart';
 
 class DayInfo extends StatelessWidget {
-  const DayInfo({super.key});
+  const DayInfo(this.currentDay, {super.key});
 
-  static const dayInfoText =
-      'Der 7. September 2026 ist ein Montag und zwar der 1 Montag im Monat September des Jahres 2026. Heute ist kein gesetzlicher Feiertag.';
+  final DateTime currentDay;
+  DateTime get currentMonth => DateTime(currentDay.year, currentDay.month);
+
+  String get monthName => DateFormat(
+    'MMMM',
+    'de_DE',
+  ).format(DateTime(currentMonth.year, currentMonth.month));
+
+  String get weekdayName => DateFormat('EEEE', 'de_DE').format(currentDay);
+
+  String get day => currentDay.day.toString();
+  String get dayInfoText =>
+      'Der ${currentDay.day}. $monthName ${currentDay.year} ist ein $weekdayName und zwar der 1 $weekdayName im Monat $monthName des Jahres ${currentDay.year}. Heute ist kein gesetzlicher Feiertag.';
 
   @override
   Widget build(context) {
@@ -19,7 +31,7 @@ class DayInfo extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Kalenderblatt vom 7. September 2026',
+            'Kalenderblatt vom ${currentDay.day}. $monthName ${currentDay.year}',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: width * 0.05,

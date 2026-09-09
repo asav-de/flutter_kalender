@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_kalender/my_decoration.dart';
+import 'package:flutter_kalender/my_box_decoration.dart';
 
 class WeekDays extends StatelessWidget {
   const WeekDays({super.key});

@@ -1,29 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_kalender/my_decoration.dart';
-
+import 'package:flutter_kalender/my_box_decoration.dart';
 import 'package:intl/intl.dart';
 
-class Month extends StatefulWidget {
-  const Month({super.key});
+class Month extends StatelessWidget {
+  const Month({
+    super.key,
+    required this.currentMonth,
+    required this.onPrevMonth,
+    required this.onNextMonth,
+  });
 
-  @override
-  State<Month> createState() => _MonthState();
-}
-
-class _MonthState extends State<Month> {
-  DateTime currentMonth = DateTime(DateTime.now().year, DateTime.now().month);
-
-  void prevMonth() {
-    setState(
-      () => currentMonth = DateTime(currentMonth.year, currentMonth.month - 1),
-    );
-  }
-
-  void nextMonth() {
-    setState(
-      () => currentMonth = DateTime(currentMonth.year, currentMonth.month + 1),
-    );
-  }
+  final DateTime currentMonth;
+  final VoidCallback onPrevMonth;
+  final VoidCallback onNextMonth;
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +26,19 @@ class _MonthState extends State<Month> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           FloatingActionButton(
-            onPressed: prevMonth,
+            onPressed: onPrevMonth,
             tooltip: 'Previous month',
             child: const Icon(Icons.chevron_left),
           ),
           Text(
-            DateFormat('MMMM').format(currentMonth),
+            DateFormat('MMMM', 'de_DE').format(currentMonth),
             style: TextStyle(
               fontSize: width * 0.04,
               fontWeight: FontWeight.bold,
             ),
           ),
           FloatingActionButton(
-            onPressed: nextMonth,
+            onPressed: onNextMonth,
             tooltip: 'Next month',
             child: const Icon(Icons.chevron_right),
           ),
