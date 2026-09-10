@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_kalender/date_calculate.dart';
 import 'package:flutter_kalender/my_box_decoration.dart';
 import 'package:intl/intl.dart';
 
-class DayInfo extends StatelessWidget {
-  const DayInfo(this.currentDay, {super.key});
+class InfoText extends StatelessWidget {
+  const InfoText(this.currentDay, this.currentMonth, {super.key});
 
   final DateTime currentDay;
-  DateTime get currentMonth => DateTime(currentDay.year, currentDay.month);
+  final DateTime currentMonth;
+
+  int get numberOfDay => currentDay.day;
+  int get numberOfWeek => (numberOfDay + 7 - 1) ~/ 7;
+  String get isFeierTag =>
+      CalculateDate.isFeierTag(currentMonth, currentDay) ? 'ein' : 'kein';
 
   String get monthName => DateFormat(
     'MMMM',
@@ -15,9 +21,8 @@ class DayInfo extends StatelessWidget {
 
   String get weekdayName => DateFormat('EEEE', 'de_DE').format(currentDay);
 
-  String get day => currentDay.day.toString();
   String get dayInfoText =>
-      'Der ${currentDay.day}. $monthName ${currentDay.year} ist ein $weekdayName und zwar der 1 $weekdayName im Monat $monthName des Jahres ${currentDay.year}. Heute ist kein gesetzlicher Feiertag.';
+      'Der ${currentDay.day}. $monthName ${currentMonth.year} ist ein $weekdayName und zwar der $numberOfWeek $weekdayName im Monat $monthName des Jahres ${currentMonth.year}. Heute ist $isFeierTag gesetzlicher Feiertag.';
 
   @override
   Widget build(context) {
@@ -31,7 +36,7 @@ class DayInfo extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Kalenderblatt vom ${currentDay.day}. $monthName ${currentDay.year}',
+            'Kalenderblatt vom ${currentDay.day}. $monthName ${currentMonth.year}',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: width * 0.05,

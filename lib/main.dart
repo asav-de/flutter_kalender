@@ -34,7 +34,10 @@ class _FlutterCalendarState extends State<FlutterCalendar> {
     () => _currentMonth = DateTime(_currentMonth.year, _currentMonth.month + 1),
   );
 
-  void _selectDay(DateTime day) => setState(() => _currentDay = day);
+  void _selectDay(DateTime day) => setState(() {
+    _currentDay = day;
+    _currentMonth = DateTime(day.year, day.month);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,7 @@ class _FlutterCalendarState extends State<FlutterCalendar> {
       home: Scaffold(
         body: Column(
           children: [
-            DayInfo(_currentDay),
+            InfoText(_currentDay, _currentMonth),
             Month(
               currentMonth: _currentMonth,
               onPrevMonth: _prevMonth,

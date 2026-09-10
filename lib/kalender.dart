@@ -47,6 +47,7 @@ class Kalender extends StatelessWidget {
               children: createWeek(
                 now,
                 currentDay,
+                currentMonth,
                 CalculateDate.addDays(firstGridDay, week * 7),
                 onDaySelect,
               ),
@@ -60,6 +61,7 @@ class Kalender extends StatelessWidget {
 List<Widget> createWeek(
   DateTime now,
   DateTime currentDay,
+  DateTime currentMonth,
   DateTime firstDay,
   void Function(DateTime) onDaySelect,
 ) {
@@ -69,6 +71,7 @@ List<Widget> createWeek(
         value: CalculateDate.addDays(firstDay, day),
         onTap: onDaySelect,
         currentDay: currentDay,
+        currentMonth: currentMonth,
       ),
   ];
 }
@@ -79,11 +82,13 @@ class DayBox extends StatefulWidget {
     required this.value,
     required this.onTap,
     required this.currentDay,
+    required this.currentMonth,
   });
 
   final DateTime value;
   final void Function(DateTime) onTap;
   final DateTime currentDay;
+  final DateTime currentMonth;
 
   @override
   State<DayBox> createState() => _DayBoxState();
@@ -124,10 +129,11 @@ class _DayBoxState extends State<DayBox> {
               alignment: Alignment.center,
               decoration: isToday || isSelected
                   ? BoxDecoration(shape: BoxShape.circle, color: Colors.blue)
-                  : isWeekEnd
+                  : isWeekEnd ||
+                        CalculateDate.isFeierTag(widget.value, widget.value)
                   ? BoxDecoration(
                       shape: BoxShape.circle,
-                      color: const Color.fromARGB(148, 248, 4, 4),
+                      color: const Color.fromARGB(147, 248, 4, 4),
                     )
                   : null,
               child: Text(
