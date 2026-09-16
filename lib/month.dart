@@ -5,14 +5,19 @@ import 'package:intl/intl.dart';
 class Month extends StatelessWidget {
   const Month({
     super.key,
-    required this.currentMonth,
+    //required this.currentMonth,
+    required this.currentDay,
+    required this.monthShift,
     required this.onPrevMonth,
     required this.onNextMonth,
   });
 
-  final DateTime currentMonth;
+  //final DateTime currentMonth;
+  final DateTime currentDay;
+  final int monthShift;
   final VoidCallback onPrevMonth;
   final VoidCallback onNextMonth;
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +36,7 @@ class Month extends StatelessWidget {
             child: const Icon(Icons.chevron_left),
           ),
           Text(
-            DateFormat('MMMM', 'de_DE').format(currentMonth),
+            DateFormat('MMMM', 'de_DE').format(DateTime(currentDay.year,currentDay.month + monthShift)),
             style: TextStyle(
               fontSize: width * 0.04,
               fontWeight: FontWeight.bold,

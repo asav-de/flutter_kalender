@@ -1,4 +1,5 @@
 abstract class CalculateDate {
+
   static DateTime addDays(DateTime date, int days) =>
       DateTime(date.year, date.month, date.day + days);
 
@@ -10,8 +11,8 @@ abstract class CalculateDate {
     "12-26": "2. Weihnachtstag",
   };
 
-  static bool isFeierTag(DateTime month, DateTime day) {
-    String key = '${month.month}-${day.day}';
+  static bool isFeierTag(DateTime day) {
+    String key = '${day.month}-${day.day}';
     return festeFeiertage.containsKey(key);
   }
 

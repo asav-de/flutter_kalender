@@ -19,24 +19,25 @@ class FlutterCalendar extends StatefulWidget {
 }
 
 class _FlutterCalendarState extends State<FlutterCalendar> {
-  DateTime _currentMonth = DateTime(DateTime.now().year, DateTime.now().month);
-  DateTime _currentDay = DateTime(
-    DateTime.now().year,
-    DateTime.now().month,
-    DateTime.now().day,
-  );
+  //DateTime _currentMonth = DateTime(DateTime.now().year, DateTime.now().month);
+  DateTime _currentDay = DateTime.now();
+  int _monthShift = 0;
 
   void _prevMonth() => setState(
-    () => _currentMonth = DateTime(_currentMonth.year, _currentMonth.month - 1),
+    //() => _currentMonth = DateTime(_currentMonth.year, _currentMonth.month - 1),
+    () => _monthShift--,
   );
 
   void _nextMonth() => setState(
-    () => _currentMonth = DateTime(_currentMonth.year, _currentMonth.month + 1),
+    () => _monthShift++,
   );
+    //() => _currentMonth = DateTime(_currentMonth.year, _currentMonth.month + 1),
+  //);
 
   void _selectDay(DateTime day) => setState(() {
     _currentDay = day;
-    _currentMonth = DateTime(day.year, day.month);
+    _monthShift = 0;
+    //_currentMonth = DateTime(day.year, day.month);
   });
 
   @override
@@ -54,18 +55,20 @@ class _FlutterCalendarState extends State<FlutterCalendar> {
       home: Scaffold(
         body: Column(
           children: [
-            InfoText(_currentDay, _currentMonth),
+            InfoText(_currentDay, _monthShift),
             Month(
-              currentMonth: _currentMonth,
+              currentDay: _currentDay,
               onPrevMonth: _prevMonth,
               onNextMonth: _nextMonth,
+              monthShift: _monthShift,
             ),
             WeekDays(),
             Column(
               children: [
                 Kalender(
                   currentDay: _currentDay,
-                  currentMonth: _currentMonth,
+                  monthShift: _monthShift,
+                  //currentMonth: _currentDay,
                   onDaySelect: _selectDay,
                 ),
               ],

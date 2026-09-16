@@ -6,26 +6,29 @@ class Kalender extends StatelessWidget {
   const Kalender({
     super.key,
     required this.currentDay,
-    required this.currentMonth,
+    required this.monthShift,
+    //required this.currentMonth,
     required this.onDaySelect,
   });
 
   final DateTime currentDay;
-  final DateTime currentMonth;
+  final int monthShift;
+  //final DateTime currentMonth;
   final void Function(DateTime) onDaySelect;
 
   @override
   Widget build(context) {
-    final now = DateTime.now();
+    //final now = DateTime.now();
+    final displayedMonth = DateTime(currentDay.year, currentDay.month + monthShift);
     final int daysOfCurrentMonth = DateTime(
-      currentMonth.year,
-      currentMonth.month + 1,
+      displayedMonth.year,
+      displayedMonth.month + 1,
       0,
     ).day;
     final int totalWeeks = (daysOfCurrentMonth / 7).ceil();
     final DateTime firstOfMonth = DateTime(
-      currentMonth.year,
-      currentMonth.month,
+      displayedMonth.year,
+      displayedMonth.month,
       1,
     );
     final DateTime firstGridDay = CalculateDate.addDays(
@@ -45,9 +48,9 @@ class Kalender extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: createWeek(
-                now,
+                //now,
                 currentDay,
-                currentMonth,
+                //currentMonth,
                 CalculateDate.addDays(firstGridDay, week * 7),
                 onDaySelect,
               ),
@@ -59,9 +62,9 @@ class Kalender extends StatelessWidget {
 }
 
 List<Widget> createWeek(
-  DateTime now,
+  //DateTime now,
   DateTime currentDay,
-  DateTime currentMonth,
+  //DateTime currentMonth,
   DateTime firstDay,
   void Function(DateTime) onDaySelect,
 ) {
@@ -71,7 +74,7 @@ List<Widget> createWeek(
         value: CalculateDate.addDays(firstDay, day),
         onTap: onDaySelect,
         currentDay: currentDay,
-        currentMonth: currentMonth,
+        //currentMonth: currentMonth,
       ),
   ];
 }
@@ -82,13 +85,13 @@ class DayBox extends StatefulWidget {
     required this.value,
     required this.onTap,
     required this.currentDay,
-    required this.currentMonth,
+    //required this.currentMonth,
   });
 
   final DateTime value;
   final void Function(DateTime) onTap;
   final DateTime currentDay;
-  final DateTime currentMonth;
+  //final DateTime currentMonth;
 
   @override
   State<DayBox> createState() => _DayBoxState();
@@ -102,9 +105,9 @@ class _DayBoxState extends State<DayBox> {
     final height = MediaQuery.of(context).size.height;
 
     final bool isToday =
-        (now.year == widget.value.year &&
+        now.year == widget.value.year &&
         now.month == widget.value.month &&
-        now.day == widget.value.day);
+        now.day == widget.value.day;
 
     final bool isWeekEnd =
         (widget.value.weekday == 6 || widget.value.weekday == 7) ? true : false;
@@ -127,10 +130,11 @@ class _DayBoxState extends State<DayBox> {
               width: width * 0.06,
               height: width * 0.06,
               alignment: Alignment.center,
-              decoration: isToday || isSelected
-                  ? BoxDecoration(shape: BoxShape.circle, color: Colors.blue)
-                  : isWeekEnd ||
-                        CalculateDate.isFeierTag(widget.value, widget.value)
+              decoration: isToday
+                  ? BoxDecoration(shape: BoxShape.circle, color: const Color.fromARGB(255, 68, 243, 33))
+                  : isSelected ?
+                    BoxDecoration(shape: BoxShape.circle, color: const Color.fromARGB(255, 33, 121, 243))
+                  : isWeekEnd || CalculateDate.isFeierTag(widget.value)
                   ? BoxDecoration(
                       shape: BoxShape.circle,
                       color: const Color.fromARGB(147, 248, 4, 4),
